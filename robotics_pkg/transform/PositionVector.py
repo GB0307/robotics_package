@@ -4,6 +4,11 @@ class PositionVector:
     def __init__(self, x=None, y=None, z=None, position:np.ndarray=None, of=None):
         self.of = of
 
+        if isinstance(position, list):
+            position = np.array(position)
+        if position is not None and position.shape == (3,):
+            position = np.reshape(position, (3,1))
+
         if position is not None:
             if position.shape != (3,1):
                 raise Exception(f"Wrong position shape, should be (3,1), found {position.shape}")

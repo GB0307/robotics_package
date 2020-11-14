@@ -12,10 +12,7 @@ class RotationMatrix:
         if rotation is not None and not isinstance(rotation, np.matrix) and not isinstance(rotation, np.ndarray) and not isinstance(rotation, list):
             raise Exception("Rotation must be an array or matrix")
 
-        if isinstance(rotation, list):
-            rotation = np.matrix(rotation)
-
-        if isinstance(rotation, np.ndarray):
+        if isinstance(rotation, list) or isinstance(rotation, np.ndarray):
             rotation = np.asmatrix(rotation)
 
         self.of = of
