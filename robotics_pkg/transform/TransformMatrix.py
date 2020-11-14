@@ -69,3 +69,11 @@ class TransformMatrix:
         r = self.rotation.inverse
         p = -(r.npMatrix*self.position.position)
         return TransformMatrix(rotation=r, position=p, of=self.to, to=self.of)
+
+    def __eq__(self, other)->bool:
+        if isinstance(other, TransformMatrix):
+            return self.of == other.of and self.to == other.to and np.array_equal(other.transform, self.transform)
+        elif isinstance(other, list) or isinstance(other, np.ndarray) or isinstance(other, np.matrix):
+            return np.array_equal(self.transform, other)
+        else:
+            return False

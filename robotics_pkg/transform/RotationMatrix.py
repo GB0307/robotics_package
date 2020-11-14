@@ -36,7 +36,6 @@ class RotationMatrix:
 
         # MULTIPLYING 2 TRANSFORM MATRICES
         if isinstance(other, RotationMatrix):
-            print("IS MATRIX")
             if self.of != other.to:
                 raise Exception("Invalid multiplication, self.of must be equals to other.to")
             return RotationMatrix(self.npMatrix * other.npMatrix, other.of, self.to)
@@ -48,6 +47,15 @@ class RotationMatrix:
             return PV(position=self.npMatrix*other.position, of=self.to)
         else:
             raise Exception("Rotation can only multiply another rotation or a position vector")
+    
+    
+    def __eq__(self, other)->bool:
+        if isinstance(other, RotationMatrix):
+            return self.of == other.of and self.to == other.to and np.array_equal(other.rotation, self.npMatrix)
+        elif isinstance(other, list) or isinstance(other, np.ndarray) or isinstance(other, np.matrix):
+            return np.array_equal(self.npMatrix, other)
+        else:
+            return False
 
 
 
